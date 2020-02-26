@@ -17,7 +17,6 @@ class DrawerLayout extends StatelessWidget {
     );
   }
 }
-
 Widget menu(context){
   final backgroundColor = Color(0xFF4A4A58);
   return Padding(
@@ -43,7 +42,7 @@ Widget menu(context){
             padding: EdgeInsets.only(right:40 ),
             child: Text("B-Tech CSE", style:TextStyle(color: Colors.white, fontSize: 15)),
           ),
-          SizedBox(height :50),
+          SizedBox(height :100),
           Container(
             // decoration: BoxDecoration()
             child: RaisedButton(
