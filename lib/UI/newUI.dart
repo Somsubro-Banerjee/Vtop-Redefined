@@ -41,7 +41,7 @@ class ExtendedHome extends StatelessWidget {
               SecondScreen(),
             ],
           ),
-          
+
         ),
       ),
     );
@@ -57,8 +57,29 @@ class FirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: firstTabColor,
-      body: Center(
-        child: Text('Tab 1 Layout'),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(20, 30, 20, 10),
+        child: Center(
+          child: Column(          
+            children: <Widget>[
+              Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    center: Alignment(-0.5, -0.6),
+                    radius: 0.15,
+                    colors: <Color>[
+                      Color(0xFFEEEEEE),
+                      Color(0xFF111133),
+                    ],
+                    stops: <double>[0.9, 1.0],
+                  )
+                )
+              ),
+              
+            ]
+          ),
+        ),
       ),
     );
   }
