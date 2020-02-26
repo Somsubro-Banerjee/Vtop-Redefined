@@ -28,8 +28,10 @@ Widget menu(context){
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right:0, top: 0),
+          Column(
+            children: <Widget>[
+              Container(
+            margin: EdgeInsets.only(right:20, top: 0),
             child: CircleAvatar(
               
             backgroundImage: NetworkImage("https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
@@ -37,12 +39,16 @@ Widget menu(context){
             ),
           ),
           Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.only(right: 25, top: 10),
             child: Text("D.M. Amritesh", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize:20),)),
           Container(
-            padding: EdgeInsets.only(right:40 ),
+            padding: EdgeInsets.only(right:30 ),
             child: Text("B-Tech CSE", style:TextStyle(color: Colors.white, fontSize: 15)),
           ),
+
+            ],
+          ),
+          
           SizedBox(height :100),
           Container(
             // decoration: BoxDecoration()
