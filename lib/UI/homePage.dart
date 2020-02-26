@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   PageController mycontroller = PageController();
   final backgroundColor = Color(0xFF4A4A58);
+  final foregroundColor =Color(0xFF943126);
   @override
   Widget build(BuildContext context) {
     return PageView(
@@ -73,44 +74,91 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   // dragStartBehavior: DragStartBehavior.start,
                   // physics: BouncingScrollPhysics(),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      SizedBox(width: 20),
-                      Container(
-                        height: 150,
-                        width: 150,
-                        child: Card(
-                          child: Center(child: Text("Event 1")),
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Padding(padding: EdgeInsets.all(20)),
+                        Container(
+                          child: GestureDetector(
+                            onTap: () => 
+                              debugPrint("Nice sexy"),
+                            
+                            
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                
+                                image: DecorationImage(
+                                  fit:BoxFit.cover,
+                                  image: NetworkImage('https://images.pexels.com/photos/2263436/pexels-photo-2263436.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'))
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      SizedBox(width:20),
-                       Container(
-                         height: 150,
-                         width: 150,
-                         child: Card(
-                          child: Center(child: Text("Event 2")),
-                      ),
-                      ),
-                       SizedBox(width:20),
-                       Container(
-                         height: 150,
-                         width: 150,
-                         child: Card(
-                          child: Center(child: Text("Event 3")),
-                      ),
-                      ),
-                       SizedBox(width:20),
-                       Container(
-                         height: 150,
-                         width: 150,
-                         child: Card(
-                          child: Center(child: Text("Event 4")),
-                      ),
-                      ),
-                    ],
+                        SizedBox(width:20),
+                         Container(
+                          child: GestureDetector(
+                            onTap: () => 
+                              debugPrint("Nice sexy"),
+                            
+                            
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                
+                                image: DecorationImage(
+                                  fit:BoxFit.cover,
+                                  image: NetworkImage('https://images.pexels.com/photos/976866/pexels-photo-976866.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'))
+                              ),
+                            ),
+                          ),
+                        ),
+                         SizedBox(width:20),
+                         Container(
+                          child: GestureDetector(
+                            onTap: () => 
+                              debugPrint("Nice sexy"),
+                          
+                            
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                
+                                image: DecorationImage(
+                                  fit:BoxFit.cover,
+                                  image: NetworkImage('https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'))
+                              ),
+                            ),
+                          ),
+                        ),
+                         SizedBox(width:20),
+                         Container(
+                          child: GestureDetector(
+                            onTap: () => 
+                              debugPrint("Nice sexy"),
+                            
+                            
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                
+                                image: DecorationImage(
+                                  fit:BoxFit.cover,
+                                  image: NetworkImage('https://images.pexels.com/photos/787961/pexels-photo-787961.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'))
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 )),
             ],
