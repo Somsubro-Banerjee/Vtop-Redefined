@@ -33,7 +33,7 @@ class ExtendedHome extends StatelessWidget {
               ],
             ),
             centerTitle: true,
-            title: Text('EXTENDED',style: TextStyle(letterSpacing: 8),),
+            title: Text('EXTENDED',style: TextStyle(letterSpacing:8),),
           ),
           body: TabBarView(
             children: [
@@ -41,6 +41,7 @@ class ExtendedHome extends StatelessWidget {
               SecondScreen(),
             ],
           ),
+          
         ),
       ),
     );
