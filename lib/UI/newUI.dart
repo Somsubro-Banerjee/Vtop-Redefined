@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'dart:ui';
-
+import 'dart:ui';
+import 'Drawerlayout.dart';
 class ExtendedHome extends StatelessWidget {
   final backgroundColor = Color(0xFF2c2c2c);
   final firstTabColor = Color(0xFF1d1d1d);
@@ -11,7 +11,20 @@ class ExtendedHome extends StatelessWidget {
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
+          drawer:  Drawer(
+            elevation: 16.0,
+            child: Scaffold(
+              appBar: AppBar(
+                elevation:0,
+                backgroundColor: backgroundColor,
+              ),
+              body: DrawerLayout()),
+          ),
           appBar: AppBar(
+            
+            actions: <Widget>[
+              
+            ],
             backgroundColor: backgroundColor,
             bottom: TabBar(
               tabs: [
