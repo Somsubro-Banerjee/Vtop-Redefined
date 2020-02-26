@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'Drawerlayout.dart';
@@ -8,77 +9,121 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  PageController mycontroller = PageController();
   final backgroundColor = Color(0xFF4A4A58);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))
-        // ),
-        backgroundColor: Colors.pink,
-        elevation: 0.0,
-        title: Text("V-TOP REMASTERED", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-        centerTitle: true,
-      ),
-      drawer: Drawer(
-        elevation: 16.0,
-        child: DrawerLayout(),
-      ),
-      body: Stack(
-        children: <Widget>[
-          Column(
+    return PageView(
+      controller:mycontroller,
+      pageSnapping: true,
+      scrollDirection: Axis.horizontal,
+      children: <Widget>[
+        Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))
+            // ),
+            backgroundColor: Colors.pink,
+            elevation: 0.0,
+            title: Text("V-TOP REMASTERED", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+            centerTitle: true,
+          ),
+          drawer: Drawer(
+            elevation: 16.0,
+            child: Scaffold(
+              appBar: AppBar(
+                elevation:0,
+                backgroundColor: backgroundColor,
+              ),
+              body: DrawerLayout()),
+          ),
+          body: Stack(
             children: <Widget>[
-              ClipPath(
-                clipper: MyCustomClipper(),
-                  child: Container(
-                  height:250,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey
-                        )
-                        ],
-                    color: Colors.pink,
-                  ),
-                  child: Center(
-                    child: Container(
-                      // margin: EdgeInsets.only(top:10, right: 80, left: 100),
-                      // child: Text("V-TOP REDEFINED...", style: TextStyle(color: Colors.white, fontSize: 25, fontFamily: 'Weather'),),
+              Column(
+                children: <Widget>[
+                  ClipPath(
+                    clipper: MyCustomClipper(),
+                      child: Container(
+                      height:250,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey
+                            )
+                            ],
+                        color: Colors.pink,
+                      ),
+                      child: Center(
+                        child: Container(
+                          margin: EdgeInsets.only(top:90, right: 80, left: 100),
+                          child: Text("On going Events", style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'Weather'),),
+                        ),
+                      ),
                     ),
+                  )
+                ],
+              ),
+
+              Container(
+                // padding: EdgeInsets.all(5),
+                height: 150,
+                width: 2000,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  // dragStartBehavior: DragStartBehavior.start,
+                  // physics: BouncingScrollPhysics(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      SizedBox(width: 20),
+                      Container(
+                        height: 150,
+                        width: 150,
+                        child: Card(
+                          child: Center(child: Text("Event 1")),
+                        ),
+                      ),
+                      SizedBox(width:20),
+                       Container(
+                         height: 150,
+                         width: 150,
+                         child: Card(
+                          child: Center(child: Text("Event 2")),
+                      ),
+                      ),
+                       SizedBox(width:20),
+                       Container(
+                         height: 150,
+                         width: 150,
+                         child: Card(
+                          child: Center(child: Text("Event 3")),
+                      ),
+                      ),
+                       SizedBox(width:20),
+                       Container(
+                         height: 150,
+                         width: 150,
+                         child: Card(
+                          child: Center(child: Text("Event 4")),
+                      ),
+                      ),
+                    ],
                   ),
-                ),
-              )
+                )),
             ],
           ),
+        ),
 
-          Container(
-            // padding: EdgeInsets.all(5),
-            height: 150,
-            width: 2000,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  height: 150,
-                  width: 150,
-                  child: Card(
-                    child: Center(child: Text("Nice Sexy")),
-                  ),
-                ),
-                 Container(
-                   height: 150,
-                   width: 150,
-                   child: Card(
-                    child: Center(child: Text("Nice Sexy")),
-                ),
-                 ),
-              ],
-            )),
-        ],
-      ),
+        Scaffold(
+          backgroundColor: Colors.white,
+          body: Container(
+            child: Text("nice sexy")
+          ),
+        )
+      ],
     );
   }
 }

@@ -29,9 +29,10 @@ Widget menu(context){
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Container(
-            // margin: EdgeInsets.all(50),
+            margin: EdgeInsets.only(right:0, top: 0),
             child: CircleAvatar(
-              backgroundImage: NetworkImage("https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+              
+            backgroundImage: NetworkImage("https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
             maxRadius: 80,
             ),
           ),
@@ -48,8 +49,15 @@ Widget menu(context){
             child: RaisedButton(
               color: backgroundColor,
               elevation: 0,
-              child: Text("Account Info", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 49,),
+                  Icon(Icons.info_outline, color: Colors.white,),
+                  SizedBox(width: 10,),
+                  Text("Account Info", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
             ),
+                ],
+              ),
             onPressed: () => {},
             ),
           ),
@@ -58,8 +66,15 @@ Widget menu(context){
              child: RaisedButton(
                color: backgroundColor,
                elevation: 0,
-               child: Text("Announcements", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
+               child: Row(
+                 children: <Widget>[
+                   SizedBox(width:1),
+                   Icon(Icons.announcement, color: Colors.white,),
+                   SizedBox(width: 10,),
+                   Text("Announcements", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
           ),
+                 ],
+               ),
           onPressed: () => {},
           ),
            ),
@@ -67,8 +82,28 @@ Widget menu(context){
            RaisedButton(
              color: backgroundColor,
              elevation: 0,
-             child: Text("Settings", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
+             child: Row(
+               children: <Widget>[
+                 SizedBox(width:110),
+                 Icon(Icons.settings, color: Colors.white,),
+                 SizedBox(width:8),                 Text("Settings", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
           ),
+               ],
+             ),
+          onPressed: () => {},
+          ),
+          SizedBox(height: 50,),
+           RaisedButton(
+             color: backgroundColor,
+             elevation: 0,
+             child: Row(
+               children: <Widget>[
+                 SizedBox(width:165),
+                 Icon(Icons.keyboard_arrow_left, color: Colors.white,),
+                 Text("Logout", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+               ],
+             ),
           onPressed: () => {},
           ),
           SizedBox(height: 30,),
