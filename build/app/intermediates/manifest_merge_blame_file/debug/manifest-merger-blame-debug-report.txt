@@ -1,6 +1,6 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.example.vtop"
+3    package="com.project.extended"
 4    android:versionCode="1"
 5    android:versionName="1.0.0" >
 6
@@ -34,7 +34,7 @@
 27-->D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:10:9-29
 28        <activity
 28-->D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:12:9-40:20
-29            android:name="com.example.vtop.MainActivity"
+29            android:name="com.project.extended.MainActivity"
 29-->D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:13:13-41
 30            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
 30-->D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:16:13-163

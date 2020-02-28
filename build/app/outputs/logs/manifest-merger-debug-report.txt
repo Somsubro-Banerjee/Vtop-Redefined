@@ -32,7 +32,7 @@ INJECTED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\debug\AndroidMani
 INJECTED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
-		ADDED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:2:5-31
+		ADDED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:2:5-35
 		INJECTED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml
 		INJECTED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\debug\AndroidManifest.xml
 	android:versionName
@@ -59,7 +59,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\dm
 		ADDED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:11:9-43
 	android:name
 		ADDED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:9:9-57
-activity#com.example.vtop.MainActivity
+activity#com.project.extended.MainActivity
 ADDED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:12:9-40:20
 	android:launchMode
 		ADDED from D:\Flutter\Vit-AP\Vtop-Redefined\android\app\src\main\AndroidManifest.xml:14:13-43

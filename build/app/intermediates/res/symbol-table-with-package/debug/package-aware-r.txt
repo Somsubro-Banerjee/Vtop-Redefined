@@ -1,4 +1,4 @@
-com.example.vtop
+com.project.extended
 attr alpha
 attr coordinatorLayoutStyle
 attr font
