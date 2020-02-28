@@ -29,14 +29,15 @@ class ExtendedHome extends StatelessWidget {
               
             ],
             backgroundColor: backgroundColor,
-            bottom: TabBar(
+            bottom: TabBar(indicatorColor: Colors.pinkAccent,
               tabs: [
-                Tab(child: Container(child:Text("ACTIVITY", style: TextStyle(letterSpacing: 4.0),)),),
-                Tab(child: Container(child:Text("DISCOVER", style: TextStyle(letterSpacing: 4.0),)),),
+                Tab(child: Container(child:Text("ACTIVITIES", style: TextStyle(letterSpacing: 1.5, fontSize: 16),)),),
+                Tab(child: Container(child:Text("DISCOVER", style: TextStyle(letterSpacing: 1.5, fontSize: 16),)),),
               ],
             ),
             centerTitle: true,
-            title: Text('EXTENDED',style: TextStyle(letterSpacing:8),),
+            title: Text('EXTENDED',style: TextStyle(fontSize: 22,letterSpacing:7),),
+            
           ),
           body: TabBarView(
             children: [
