@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class DrawerLayout extends StatelessWidget {
-  final backgroundColor = Color(0xFF4A4A58);
+  final backgroundColor = Color(0xFF1d1d1d);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class DrawerLayout extends StatelessWidget {
   }
 }
 Widget menu(context){
-  final backgroundColor = Color(0xFF4A4A58);
+  final backgroundColor = Color(0xFF1d1d1d);
   return Padding(
     padding: const EdgeInsets.only(left: 16.0),
     child: Align(
