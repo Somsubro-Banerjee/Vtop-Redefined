@@ -106,7 +106,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Sun.jpg'),
+                    image: AssetImage('assets/images/Rocks.jpg'),
                     fit: BoxFit.cover
                   )
                 ),
@@ -136,7 +136,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Sun.jpg'),
+                    image: AssetImage('assets/images/Shed.jpg'),
                     fit: BoxFit.cover
                   )
                 ),
@@ -166,7 +166,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Sun.jpg'),
+                    image: AssetImage('assets/images/lights.jpg'),
                     fit: BoxFit.cover
                   )
                 ),
@@ -196,7 +196,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Sun.jpg'),
+                    image: AssetImage('assets/images/Desert.jpg'),
                     fit: BoxFit.cover
                   )
                 ),
