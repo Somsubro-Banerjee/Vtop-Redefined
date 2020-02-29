@@ -29,7 +29,7 @@ class ExtendedHome extends StatelessWidget {
               
             ],
             backgroundColor: backgroundColor,
-            bottom: TabBar(indicatorColor: Colors.pinkAccent,
+            bottom: TabBar(indicatorColor: Colors.purpleAccent,labelColor: Colors.purpleAccent.shade100,unselectedLabelColor: Colors.white,
               tabs: [
                 Tab(child: Container(child:Text("ACTIVITIES", style: TextStyle(letterSpacing: 1.5, fontSize: 16),)),),
                 Tab(child: Container(child:Text("DISCOVER", style: TextStyle(letterSpacing: 1.5, fontSize: 16),)),),
