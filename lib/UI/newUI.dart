@@ -74,9 +74,14 @@ class FirstScreen extends StatelessWidget {
             Container(
               child: Ink(
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1.0,
+                    color: Colors.grey.shade600,
+                    style: BorderStyle.solid
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Sun.jpg'),
+                    image: NetworkImage('https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'),
                     fit: BoxFit.cover
                   )
                 ),
@@ -86,16 +91,20 @@ class FirstScreen extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(22),
                       onTap: (){},
-                      child: Center(
-                        child: Text("Event 1",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.only(top: 120, left: 15),
+                            child: Text("Event 1",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                              ),
+                            ),
+                          )
+                        ]
+                      )
                     ),
                   )
                 )
@@ -104,9 +113,14 @@ class FirstScreen extends StatelessWidget {
             Container(
               child: Ink(
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1.0,
+                    color: Colors.grey.shade600,
+                    style: BorderStyle.solid
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Rocks.jpg'),
+                    image: NetworkImage('https://images.pexels.com/photos/3667816/pexels-photo-3667816.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'),
                     fit: BoxFit.cover
                   )
                 ),
@@ -116,16 +130,20 @@ class FirstScreen extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(22),
                       onTap: (){},
-                      child: Center(
-                        child: Text("Event 2",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.only(top: 120, left: 15),
+                            child: Text("Event 2",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                              ),
+                            ),
+                          )
+                        ]
+                      )
                     ),
                   )
                 )
@@ -134,9 +152,14 @@ class FirstScreen extends StatelessWidget {
             Container(
               child: Ink(
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1.0,
+                    color: Colors.grey.shade600,
+                    style: BorderStyle.solid
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Shed.jpg'),
+                    image: NetworkImage('https://images.pexels.com/photos/3617496/pexels-photo-3617496.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'),
                     fit: BoxFit.cover
                   )
                 ),
@@ -146,16 +169,20 @@ class FirstScreen extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(22),
                       onTap: (){},
-                      child: Center(
-                        child: Text("Event 3",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.only(top: 210, left: 15),
+                            child: Text("Event 3",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                              ),
+                            ),
+                          )
+                        ]
+                      )
                     ),
                   )
                 )
@@ -164,9 +191,14 @@ class FirstScreen extends StatelessWidget {
             Container(
               child: Ink(
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1.0,
+                    color: Colors.grey.shade600,
+                    style: BorderStyle.solid
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/lights.jpg'),
+                    image: NetworkImage('https://images.pexels.com/photos/3736816/pexels-photo-3736816.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'),
                     fit: BoxFit.cover
                   )
                 ),
@@ -176,16 +208,20 @@ class FirstScreen extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(22),
                       onTap: (){},
-                      child: Center(
-                        child: Text("Event 4",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.only(top: 210, left: 15),
+                            child: Text("Event 4",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                              ),
+                            ),
+                          )
+                        ]
+                      )
                     ),
                   )
                 )
@@ -194,9 +230,14 @@ class FirstScreen extends StatelessWidget {
             Container(
               child: Ink(
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1.0,
+                    color: Colors.grey.shade600,
+                    style: BorderStyle.solid
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/Desert.jpg'),
+                    image: NetworkImage('https://images.pexels.com/photos/2792157/pexels-photo-2792157.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
                     fit: BoxFit.cover
                   )
                 ),
@@ -206,16 +247,20 @@ class FirstScreen extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(22),
                       onTap: (){},
-                      child: Center(
-                        child: Text("Event 5",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.only(top: 120, left: 15),
+                            child: Text("Event 5",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                              ),
+                            ),
+                          )
+                        ]
+                      )
                     ),
                   )
                 )
