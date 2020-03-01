@@ -76,7 +76,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1.0,
-                    color: Colors.grey.shade600,
+                    color: Colors.grey.shade700,
                     style: BorderStyle.solid
                   ),
                   borderRadius: BorderRadius.circular(20),
@@ -115,7 +115,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1.0,
-                    color: Colors.grey.shade600,
+                    color: Colors.grey.shade700,
                     style: BorderStyle.solid
                   ),
                   borderRadius: BorderRadius.circular(20),
@@ -154,7 +154,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1.0,
-                    color: Colors.grey.shade600,
+                    color: Colors.grey.shade700,
                     style: BorderStyle.solid
                   ),
                   borderRadius: BorderRadius.circular(20),
@@ -193,7 +193,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1.0,
-                    color: Colors.grey.shade600,
+                    color: Colors.grey.shade700,
                     style: BorderStyle.solid
                   ),
                   borderRadius: BorderRadius.circular(20),
@@ -232,7 +232,7 @@ class FirstScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1.0,
-                    color: Colors.grey.shade600,
+                    color: Colors.grey.shade700,
                     style: BorderStyle.solid
                   ),
                   borderRadius: BorderRadius.circular(20),
