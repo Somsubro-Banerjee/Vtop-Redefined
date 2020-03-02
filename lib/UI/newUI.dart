@@ -94,7 +94,7 @@ class FirstScreen extends StatelessWidget {
                       onTap: (){},
                       child: Stack(
                         children: <Widget>[
-                          Padding(padding: EdgeInsets.only(top: 120, left: 15),
+                          Padding(padding: EdgeInsets.only(top: 140, left: 15),
                             child: Text("Event 1",
                               textAlign: TextAlign.left,
                               style: TextStyle(
@@ -133,7 +133,7 @@ class FirstScreen extends StatelessWidget {
                       onTap: (){},
                       child: Stack(
                         children: <Widget>[
-                          Padding(padding: EdgeInsets.only(top: 120, left: 15),
+                          Padding(padding: EdgeInsets.only(top: 140, left: 15),
                             child: Text("Event 2",
                               textAlign: TextAlign.left,
                               style: TextStyle(
@@ -172,7 +172,7 @@ class FirstScreen extends StatelessWidget {
                       onTap: (){},
                       child: Stack(
                         children: <Widget>[
-                          Padding(padding: EdgeInsets.only(top: 210, left: 15),
+                          Padding(padding: EdgeInsets.only(top: 230, left: 15),
                             child: Text("Event 3",
                               textAlign: TextAlign.left,
                               style: TextStyle(
@@ -211,7 +211,7 @@ class FirstScreen extends StatelessWidget {
                       onTap: (){},
                       child: Stack(
                         children: <Widget>[
-                          Padding(padding: EdgeInsets.only(top: 210, left: 15),
+                          Padding(padding: EdgeInsets.only(top: 230, left: 15),
                             child: Text("Event 4",
                               textAlign: TextAlign.left,
                               style: TextStyle(
@@ -250,7 +250,7 @@ class FirstScreen extends StatelessWidget {
                       onTap: (){},
                       child: Stack(
                         children: <Widget>[
-                          Padding(padding: EdgeInsets.only(top: 120, left: 15),
+                          Padding(padding: EdgeInsets.only(top: 140, left: 15),
                             child: Text("Event 5",
                               textAlign: TextAlign.left,
                               style: TextStyle(
