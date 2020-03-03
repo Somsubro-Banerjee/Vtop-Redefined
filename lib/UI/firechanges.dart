@@ -315,7 +315,7 @@ class SecondScreen extends StatelessWidget {
                       child: Stack(
                         children: <Widget>[
                           Padding(padding: EdgeInsets.only(top: 120, left: 15),
-                            child: Text('${docsSnap['image']}',
+                            child: Text('${docsSnap['text']}',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 20,
