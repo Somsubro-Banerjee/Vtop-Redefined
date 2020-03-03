@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'Drawerlayout.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class ExtendedHome extends StatelessWidget {
   final backgroundColor = Color(0xFF2c2c2c);
   final firstTabColor = Color(0xFF1d1d1d);
@@ -279,8 +279,35 @@ class SecondScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: seconfTabColor,
-      body: Center(
-        child: Text('Tab 2 Layout'),
+      body: StreamBuilder(
+        stream: Firestore.instance.collection('posts').snapshots(),
+        builder: (context, snapshot){
+          if(!snapshot.hasData){
+            return CircularProgressIndicator();
+          }
+          else{
+            return ListView.builder(
+              itemCount: snapshot.data.documents.length,
+              itemBuilder: (context, index){
+                DocumentSnapshot docsSnap = snapshot.data.documents[index];
+                return Container(
+                  height: 350,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: <Widget>[
+                      Image.network('${docsSnap['image']}',
+                      height: 150.0,
+                      width: 150.0,
+                      ),
+                      Text('Title is ${docsSnap['title']}')
+                      
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }
