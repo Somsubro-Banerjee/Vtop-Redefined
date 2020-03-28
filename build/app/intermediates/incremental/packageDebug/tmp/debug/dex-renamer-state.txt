@@ -1,10 +1,10 @@
-#Thu Mar 05 20:45:51 IST 2020
+#Sat Mar 28 19:36:14 IST 2020
 path.2=classes3.dex
 path.1=classes2.dex
 path.0=classes.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.2=D\:\\Flutter\\Projects\\Vtop\\Vtop-Redefined\\Vtop-Redefined\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes3.dex
-base.1=D\:\\Flutter\\Projects\\Vtop\\Vtop-Redefined\\Vtop-Redefined\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes2.dex
-base.0=D\:\\Flutter\\Projects\\Vtop\\Vtop-Redefined\\Vtop-Redefined\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+base.2=D\:\\Flutter\\Projects\\Vtop-Redefined\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes3.dex
+base.1=D\:\\Flutter\\Projects\\Vtop-Redefined\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes2.dex
+base.0=D\:\\Flutter\\Projects\\Vtop-Redefined\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
