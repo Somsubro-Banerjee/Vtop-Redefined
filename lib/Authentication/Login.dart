@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:vtop/Authentication/Signup.dart';
 import 'package:vtop/Authentication/forgotPass.dart';
-import 'package:vtop/Authentication/Authentication.dart';
+// import 'package:vtop/Authentication/Authentication.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vtop/UI/firechanges.dart';
 class LoginScreen extends StatefulWidget {
@@ -26,8 +24,23 @@ class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
+    FirebaseUser user;
 
-
+//  @override
+//  void initState() {
+//    super.initState();
+//    getUser().then((user) {
+//      if (user != null) {
+//        // send the user to the home page
+//        ExtendedHome();
+////        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+//        // homePage();
+//      }
+//    });
+//  }
+//  Future<FirebaseUser> getUser() async {
+//    return await _auth.currentUser();
+//  }
   bool validatAndSave()
   {
     if(_formKey.currentState.validate()){
@@ -36,22 +49,22 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return false;
   }
-   validateAndLogin() async
+  validateAndLogin() async
   {
     if(validatAndSave()) {
       try {
 
-        FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+        FirebaseUser user;
+        user = (await _auth.signInWithEmailAndPassword(
             email: _email, password: _pass)).user;
-        UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
-        userUpdateInfo.displayName = _email;
 
-        print('Login successfull user id of user is  : ${user.uid}');
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ExtendedHome()));
+        print('Login successfull user id is  : ${user.uid}');
       } catch (error) {
         switch(error.code){
           case "ERROR_USER_NOT_FOUND":  {
             setState(() {
-              String errorMsg = "No user found with this account";
+              String errorMsg = "User not Registered";
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -70,15 +83,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 String errorMsg = "Password doesn\'t match your email.";
 
 
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content: Container(
-                        child: Text(errorMsg),
-                      ),
-                    );
-                  });
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: Container(
+                          child: Text(errorMsg),
+                        ),
+                      );
+                    });
               });
             }
             break;
@@ -89,14 +102,10 @@ class _LoginScreenState extends State<LoginScreen> {
               });
             }
         }
-      }
-    } else
-      {
-        setState(() {
-          bool _autovalidate = true;
-        });
-      }
-  }
+      } 
+    }
+
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -113,50 +122,50 @@ class _LoginScreenState extends State<LoginScreen> {
             fit: BoxFit.cover
           )
         ),
-        child:Form(
-            key: _formKey,
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15, left: MediaQuery.of(context).size.width*0.1),
-                    child: Text("LOGIN",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+        child: Form(
+          key: _formKey,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15, left: MediaQuery.of(context).size.width*0.1),
+                child: Text("LOGIN",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w700,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.33, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
-                    child: TextFormField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                        RegExp regex = new RegExp(pattern);
-                        if (!(regex.hasMatch(value) && value.contains("vitap.ac.in")))
-                          return "Please enter a valid Email-ID";
-                        else
-                          return null;
-                      },
-                      onSaved: (value) => _email = value.trim(),
-                      obscureText: false,
-                      autofocus: false,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.33, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
+                  child: TextFormField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                      RegExp regex = new RegExp(pattern);
+                      if (!(regex.hasMatch(value) && value.contains("vitap.ac.in")))
+                       return "Please enter a valid Email-ID";
+                      else
+                        return null;
+                    },
+                    onSaved: (value) => _email = value.trim(),
+                    obscureText: false,
+                    autofocus: false,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      errorStyle: TextStyle(color: Colors.white),
                         enabledBorder: const OutlineInputBorder(
                           borderSide:
-                            const BorderSide(color: Colors.white, width: 1.75),
+                              const BorderSide(color: Colors.white, width: 1.75),
                         ),
                         focusedBorder: const OutlineInputBorder(
                           borderSide:
-                            const BorderSide(color: Colors.white, width: 1.75),
+                              const BorderSide(color: Colors.white, width: 1.75),
                         ),
                         border: const OutlineInputBorder(
                           borderSide:
-                            const BorderSide(color: Colors.white, width: 1.75),
+                              const BorderSide(color: Colors.white, width: 1.75),
                         ),
                         prefixIcon: Icon(
                           Icons.email,
@@ -166,38 +175,37 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: "Enter your VIT-AP Email ID",
                         hintStyle: TextStyle(color: Colors.white, fontSize: 15),
                         labelText: "Email",
-                        labelStyle: TextStyle(color: Colors.white, fontSize: 18)
-                      ),
-                    ),
+                        labelStyle: TextStyle(color: Colors.white, fontSize: 18)),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.45, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
-                    child: TextFormField(                    
-                      controller: passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      validator: (value) {
-                        if (value.length < 6) {
-                          return "Enter more than 6 Characters";
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => _pass = value.trim(),
-                      style: TextStyle(color: Colors.white),
-                      obscureText: true,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white,),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.45, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
+                  child: TextFormField(                    
+                    controller: passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: (value) {
+                      if (value.length < 6) {
+                        return "Enter more than 6 Characters";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) => _pass = value.trim(),
+                    style: TextStyle(color: Colors.white),
+                    obscureText: true,
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      errorStyle: TextStyle(color: Colors.white,),
                         enabledBorder: const OutlineInputBorder(
                           borderSide:
-                            const BorderSide(color: Colors.white, width: 1.75),
+                              const BorderSide(color: Colors.white, width: 1.75),
                         ),
                         focusedBorder: const OutlineInputBorder(
                           borderSide:
-                            const BorderSide(color: Colors.white, width: 1.75),
+                              const BorderSide(color: Colors.white, width: 1.75),
                         ),
                         border: const OutlineInputBorder(
                           borderSide:
-                            const BorderSide(color: Colors.white, width: 1.75),
+                              const BorderSide(color: Colors.white, width: 1.75),
                         ),
                         prefixIcon: Icon(
                           Icons.security,
@@ -207,44 +215,41 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: "Ssshhh!!! its a secret",
                         hintStyle: TextStyle(color: Colors.white, fontSize: 15),
                         labelText: "Password",
-                        labelStyle: TextStyle(color: Colors.white, fontSize: 18)
-                      ),
-                    ),
+                        labelStyle: TextStyle(color: Colors.white, fontSize: 18)),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.54, left: MediaQuery.of(context).size.width*0.66),
-                    child: RichText(
-                      text: TextSpan(
-                        recognizer: TapGestureRecognizer()..onTap = ()
-                        {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
-                        },
-                        text:"Forgot Password ?",
-                        style: TextStyle(
-                          shadows: <Shadow>[
-                            Shadow(
-                              color: Colors.white,
-                              blurRadius: 1.5,
-                              offset: Offset(0.0, 0.0),
-                            )
-                          ],
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w900
-                        ),
-                      )
-                    ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.54, left: MediaQuery.of(context).size.width*0.66),
+                  child: RichText(
+                    text: TextSpan(
+                      recognizer: TapGestureRecognizer()..onTap = ()
+                      {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+                      },
+                      text:"Forgot Password ?",
+                      style: TextStyle(
+                        shadows: <Shadow>[
+                          Shadow(
+                            color: Colors.white,
+                            blurRadius: 1.5,
+                            offset: Offset(0.0, 0.0),
+                          )
+                        ],
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w900),)
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height*0.07,
-                    width: MediaQuery.of(context).size.width*0.9,
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.575, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
-                    child: RaisedButton(
-                      color: Colors.pink,
-                      onPressed: validateAndLogin,
-                      child: Text(
-                        "LOGIN",
-                        style: TextStyle(
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height*0.07,
+                  width: MediaQuery.of(context).size.width*0.9,
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.575, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
+                  child: RaisedButton(
+                    color: Colors.pink,
+                    onPressed: validateAndLogin,
+                    child: Text(
+                      "LOGIN",
+                      style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.w900),
@@ -301,7 +306,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.85,left: MediaQuery.of(context).size.width*0.2, right: MediaQuery.of(context).size.width*0.2),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.85,left: MediaQuery.of(context).size.width*0.18, right: MediaQuery.of(context).size.width*0.18),
                   child: RichText(
                     text: TextSpan(
                       text: "Don't have an account ?",
@@ -336,8 +341,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
-        )
-      ),
+          ),
+        ),
     );
   }
 }

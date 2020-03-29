@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vtop/Authentication/Login.dart';
+// import 'package:vtop/Authentication/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:vtop/UI/firechanges.dart';
+import 'package:vtop/UI/SplashScreen.dart';
+// import 'package:vtop/UI/firechanges.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -18,9 +19,11 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextEditingController cnfPasswordController = new TextEditingController();
-
+  FirebaseUser user;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+
+
 
   bool validatAndSave()
   {
@@ -32,32 +35,44 @@ class _SignupScreenState extends State<SignupScreen> {
   }
   validateAndSignup() async
   {
-    if(validatAndSave()) {
+    if (validatAndSave()) {
       try {
-
         FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
             email: _email, password: _cnfPass)).user;
-        UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
-        userUpdateInfo.displayName = _email;
+        user.sendEmailVerification();
+        setState(() {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => SplashScreen()));
+        });
+        showDialog(context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Container(
+                  child: Text("Please check your VIT-AP Email-ID"),
 
+                ),
+              );
+            }
+        );
         print('Login successfull user id of user is  : ${user.uid}');
       } catch (error) {
-        switch(error.code){
-          case "ERROR_EMAIL_ALREADY_IN_USE":  {
-            setState(() {
-              String errorMsg = "Email-ID already exists";
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content: Container(
-                        child: Text(errorMsg),
-                      ),
-                    );
-                  });
-            });
-          }
-          break;
+        switch (error.code) {
+          case "ERROR_EMAIL_ALREADY_IN_USE":
+            {
+              setState(() {
+                String errorMsg = "Email-ID already exists";
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: Container(
+                          child: Text(errorMsg),
+                        ),
+                      );
+                    });
+              });
+            }
+            break;
           case "ERROR_WRONG_PASSWORD":
             {
               setState(() {
@@ -79,50 +94,47 @@ class _SignupScreenState extends State<SignupScreen> {
           default:
             {
               setState(() {
-                String errorMsg ="";
+                String errorMsg = "";
               });
             }
         }
       }
-    } else
-    {
-      setState(() {
-        bool _autovalidate = true;
-      });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-          child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: Colors.black,
-              image: DecorationImage(
-                  image: AssetImage('assets/images/Space.png'),
-                  fit: BoxFit.cover)),
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          image: DecorationImage(
+            image: AssetImage('assets/images/Space.png'),
+            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.37), BlendMode.darken),
+            fit: BoxFit.cover
+          )
+        ),
+        child:Form(
+          key: _formKey,
           child: Stack(
             children: <Widget>[
-              
               Container(
-                margin: EdgeInsets.only(top:60, left: 15),
+                margin: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.05, left: MediaQuery.of(context).size.width*0.03),
                 child: IconButton(
                   icon: Icon(Icons.arrow_back, 
-                  size: 30,
-                  color: Colors.white,), 
-                onPressed: (){
-                  Navigator.pop(context);
-                },
+                    size: 30,
+                    color: Colors.white,
+                  ), 
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 150, left: 35),
-                child: Text(
-                  "SIGN UP",
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15, left: MediaQuery.of(context).size.width*0.1),
+                child: Text("SIGN UP",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 40,
@@ -131,14 +143,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 5, right: 10),
-                margin: EdgeInsets.only(top: 250, left: 10),
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
                 child: TextFormField(
-                  
-                  // key: _emailKey,
                   keyboardType: TextInputType.emailAddress,
                   controller: emailController,
-                 validator: (value) {
+                  validator: (value) {
                     Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                     RegExp regex = new RegExp(pattern);
                     if (!(regex.hasMatch(value) && value.contains("vitap.ac.in")))
@@ -150,7 +159,6 @@ class _SignupScreenState extends State<SignupScreen> {
                       return null;
                   },
                   onSaved: (value) => _email = value.trim(),
-
                   style: TextStyle(color: Colors.white),
                   obscureText: false,
                   autofocus: false,
@@ -158,37 +166,34 @@ class _SignupScreenState extends State<SignupScreen> {
                     errorStyle: TextStyle(color:Colors.white),
                       enabledBorder: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       focusedBorder: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       border: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       prefixIcon: Icon(
                         Icons.email,
                         color: Colors.white,
-                        size: 30,
+                        size: 25,
                       ),
-                      hintText: "Enter you Vit-AP Email ID",
+                      hintText: "Enter your VIT-AP Email ID",
                       hintStyle: TextStyle(color: Colors.white, fontSize: 15),
                       labelText: "Email",
-                      labelStyle: TextStyle(color: Colors.white, fontSize: 20)),
+                      labelStyle: TextStyle(color: Colors.white, fontSize: 18)),
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 5, right: 10),
-                margin: EdgeInsets.only(top: 350, left: 10),
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.4, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
                 child: TextFormField(
-                  
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
                  validator: (value) {
                     if (value.length < 6) {
-                      // CredentialManager();
                       return "Enter more than 6 Characters";
                     }
                     return null;
@@ -200,35 +205,33 @@ class _SignupScreenState extends State<SignupScreen> {
                   decoration: InputDecoration(
                       enabledBorder: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       focusedBorder: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       border: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       prefixIcon: Icon(
                         Icons.text_fields,
                         color: Colors.white,
-                        size: 30,
+                        size: 25,
                       ),
                       hintText: "Ssshhh!!! its a secret",
                       hintStyle: TextStyle(color: Colors.white, fontSize: 15),
                       labelText: "Password",
-                      labelStyle: TextStyle(color: Colors.white, fontSize: 20)),
+                      labelStyle: TextStyle(color: Colors.white, fontSize: 18)),
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 5, right: 10),
-                margin: EdgeInsets.only(top: 450, left: 10),
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.5, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
                 child: TextFormField(
                   controller: cnfPasswordController,
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value){
-//                    CredentialManager();
                     if(value != passwordController.text)
                     {
                       return "Passwords do not match";
@@ -242,100 +245,92 @@ class _SignupScreenState extends State<SignupScreen> {
                   decoration: InputDecoration(
                       enabledBorder: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       focusedBorder: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       border: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 1.75),
                       ),
                       prefixIcon: Icon(
                         Icons.security,
                         color: Colors.white,
-                        size: 30,
+                        size: 25,
                       ),
                       hintText: "Mind Writing it again?",
                       hintStyle: TextStyle(color: Colors.white, fontSize: 15),
                       labelText: "Confirm Password",
-                      labelStyle: TextStyle(color: Colors.white, fontSize: 20)),
+                      labelStyle: TextStyle(color: Colors.white, fontSize: 18)),
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height / 18,
-                width: 350,
-                // padding: EdgeInsets.only(left: 5, top:5, right:4),
-                margin: EdgeInsets.only(top: 550, left: 20),
-                child: RaisedButton(
-                  color: Colors.pink,
-                  onPressed: validateAndSignup,
-                  child: Text(
-                    "SIGN UP",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900),
+                  height: MediaQuery.of(context).size.height*0.07,
+                  width: MediaQuery.of(context).size.width*0.9,
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.655, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
+                  child: RaisedButton(
+                    color: Colors.pink,
+                    onPressed: validateAndSignup,
+                    child: Text(
+                      "SIGN UP",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w900),
+                    ),
+                    elevation: 25,
                   ),
-                  elevation: 20,
                 ),
-              ),
-             
-                   Container(
-                  margin: EdgeInsets.only(top: 630, left: 180),
+                Container(
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.74, left: MediaQuery.of(context).size.width*0.48),
                   child: RichText(
                     text: TextSpan(
                         text: "OR ",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
-                            fontWeight: FontWeight.w700),
+                            fontWeight: FontWeight.w700
                         ),
-                  )
-                  ),
-                  Container(
-                height: MediaQuery.of(context).size.height / 15,
-                width: MediaQuery.of(context).size.width,
-                // padding: EdgeInsets.only(left: 5, top:5, right:4),
-                margin: EdgeInsets.only(top: 670, left: 20, right: 20),
-                child: InkWell(
-                  splashColor: Colors.black,
-                  onTap: (){
-
-                  },
-                   child: Card(
-                    elevation: 20,
+                      ),
+                    )
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height*0.07,
+                  width: MediaQuery.of(context).size.width*0.9,
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.78, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
+                  child: RaisedButton(
+                    color: Colors.white,
+                    onPressed: (){},
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                     Container(
-                       padding: EdgeInsets.all(10),
-                       height: 30,
-                       width: 30,
-                       decoration: BoxDecoration(
-                       image:DecorationImage(
-                         image: AssetImage('assets/images/google.png'),
-                       ),
-                     ),),
-
-
-                      Container(
-                       padding: EdgeInsets.only(top:15, left:10),
-                       height: 50,
-                       width: 130,
-                       child: Text("Sign up with google",
-                       style: TextStyle(
-                         color:Colors.black, fontWeight: FontWeight.w900,
-                          fontSize: 15,
-
-                       ),),
-                       ),
-                     
-                    ],),
-                  ),
-                )
-              ),
+                        Container(
+                          margin: EdgeInsets.only(right: 10),
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/google.png'),
+                            )
+                          ),
+                        ),
+                        Container(
+                          child: Text('Sign Up with Google',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 15
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    elevation: 20,
+                  )
+                ),
             ],
           ),
         ),
