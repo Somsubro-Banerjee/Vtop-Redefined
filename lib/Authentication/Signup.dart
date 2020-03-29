@@ -1,8 +1,9 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vtop/Authentication/Login.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vtop/UI/firechanges.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -10,14 +11,87 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  String _email = "";
+  String _password = "";
+  String _cnfPass = "";
   final _formKey = GlobalKey<FormState>();
-  // final _emailKey = GlobalKey<FormState>();
-  // final _passwordKey = GlobalKey<FormState>();
-  // final _cnfPassKey = GlobalKey<FormState>();
-  
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   final TextEditingController cnfPasswordController = new TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  bool validatAndSave()
+  {
+    if(_formKey.currentState.validate()){
+      _formKey.currentState.save();
+      return true;
+    }
+    return false;
+  }
+  validateAndSignup() async
+  {
+    if(validatAndSave()) {
+      try {
+
+        FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+            email: _email, password: _cnfPass)).user;
+        UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
+        userUpdateInfo.displayName = _email;
+
+        print('Login successfull user id of user is  : ${user.uid}');
+      } catch (error) {
+        switch(error.code){
+          case "ERROR_EMAIL_ALREADY_IN_USE":  {
+            setState(() {
+              String errorMsg = "Email-ID already exists";
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: Container(
+                        child: Text(errorMsg),
+                      ),
+                    );
+                  });
+            });
+          }
+          break;
+          case "ERROR_WRONG_PASSWORD":
+            {
+              setState(() {
+                String errorMsg = "Password doesn\'t match your email.";
+
+
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: Container(
+                          child: Text(errorMsg),
+                        ),
+                      );
+                    });
+              });
+            }
+            break;
+          default:
+            {
+              setState(() {
+                String errorMsg ="";
+              });
+            }
+        }
+      }
+    } else
+    {
+      setState(() {
+        bool _autovalidate = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,10 +142,15 @@ class _SignupScreenState extends State<SignupScreen> {
                     Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                     RegExp regex = new RegExp(pattern);
                     if (!(regex.hasMatch(value) && value.contains("vitap.ac.in")))
+                    {
+                      // CredentialManager();
                      return "Please use only VIT-AP Email-ID";
+                    }
                     else
                       return null;
                   },
+                  onSaved: (value) => _email = value.trim(),
+
                   style: TextStyle(color: Colors.white),
                   obscureText: false,
                   autofocus: false,
@@ -104,15 +183,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 padding: EdgeInsets.only(left: 5, right: 10),
                 margin: EdgeInsets.only(top: 350, left: 10),
                 child: TextFormField(
-                  // key: _passwordKey,
+                  
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
                  validator: (value) {
                     if (value.length < 6) {
+                      // CredentialManager();
                       return "Enter more than 6 Characters";
                     }
                     return null;
                   },
+                  onSaved: (value) => _password = value.trim(),
                   style: TextStyle(color: Colors.white),
                   obscureText: true,
                   autofocus: false,
@@ -144,16 +225,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 padding: EdgeInsets.only(left: 5, right: 10),
                 margin: EdgeInsets.only(top: 450, left: 10),
                 child: TextFormField(
-                  // key: _cnfPassKey,
                   controller: cnfPasswordController,
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value){
+//                    CredentialManager();
                     if(value != passwordController.text)
                     {
-                      return "Passwords donot match";
+                      return "Passwords do not match";
                     }
                     return null;
                   },
+                  onSaved: (value) => _cnfPass = value.trim(),
                   style: TextStyle(color: Colors.white),
                   obscureText: true,
                   autofocus: false,
@@ -188,12 +270,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 margin: EdgeInsets.only(top: 550, left: 20),
                 child: RaisedButton(
                   color: Colors.pink,
-                  onPressed: () {
-                    if(_formKey.currentState.validate())
-                    {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-                    }
-                  },
+                  onPressed: validateAndSignup,
                   child: Text(
                     "SIGN UP",
                     style: TextStyle(
@@ -266,3 +343,4 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
+

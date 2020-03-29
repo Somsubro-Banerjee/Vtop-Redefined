@@ -1,22 +1,101 @@
-import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:vtop/Authentication/Signup.dart';
-
+import 'package:vtop/Authentication/forgotPass.dart';
+import 'package:vtop/Authentication/Authentication.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vtop/UI/firechanges.dart';
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String _email;
-  String _pass;
+  String _email = "";
+  String _pass = "";
   final _formKey = GlobalKey<FormState>();
-  // final _emaiKey = GlobalKey<FormState>();
-  // final _passWordKey = GlobalKey<FormState>();
+
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+
+
+  bool validatAndSave()
+  {
+    if(_formKey.currentState.validate()){
+      _formKey.currentState.save();
+      return true;
+    }
+    return false;
+  }
+   validateAndLogin() async
+  {
+    if(validatAndSave()) {
+      try {
+
+        FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+            email: _email, password: _pass)).user;
+        UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
+        userUpdateInfo.displayName = _email;
+
+        print('Login successfull user id of user is  : ${user.uid}');
+      } catch (error) {
+        switch(error.code){
+          case "ERROR_USER_NOT_FOUND":  {
+            setState(() {
+              String errorMsg = "No user found with this account";
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: Container(
+                        child: Text(errorMsg),
+                      ),
+                    );
+                  });
+            });
+          }
+          break;
+          case "ERROR_WRONG_PASSWORD":
+            {
+              setState(() {
+                String errorMsg = "Password doesn\'t match your email.";
+
+
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: Container(
+                        child: Text(errorMsg),
+                      ),
+                    );
+                  });
+              });
+            }
+            break;
+          default:
+            {
+              setState(() {
+                String errorMsg ="";
+              });
+            }
+        }
+      }
+    } else
+      {
+        setState(() {
+          bool _autovalidate = true;
+        });
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +109,13 @@ class _LoginScreenState extends State<LoginScreen> {
               image: DecorationImage(
                   image: AssetImage('assets/images/universe.jpg'),
                   fit: BoxFit.cover)),
+
+
           child: Stack(
+
+
             children: <Widget>[
+              SizedBox(height: 120,),
               Container(
                 margin: EdgeInsets.only(top: 150, left: 35),
                 child: Text(
@@ -43,11 +127,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+
+
+
+              //EMAIL AND PASSWORD LOGIN FORM HERE BELOW
               Container(
                 padding: EdgeInsets.only(left: 5, right: 10),
                 margin: EdgeInsets.only(top: 270, left: 10),
                 child: TextFormField(
-                  // key: _emaiKey,
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
@@ -58,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     else
                       return null;
                   },
+                  onSaved: (value) => _email = value.trim(),
                   obscureText: false,
                   autofocus: false,
                   style: TextStyle(color: Colors.white),
@@ -89,27 +177,41 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 370, left: 270),
-                child: Text(
-                  "Forgot Password??",
+                child: RichText(
+                  text: TextSpan(
+                    recognizer: TapGestureRecognizer()..onTap = ()
+                    {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+                    },
+                    text:"Forgot Password??",
                   style: TextStyle(
+                    shadows: <Shadow>[
+                                    Shadow(
+                                      color: Colors.white,
+                                      blurRadius: 10.0,
+                                      offset: Offset(0.0, 0.0),
+                                    )
+                                  ],
                       color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w900),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w900),)
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(left: 5, right: 10),
                 margin: EdgeInsets.only(top: 400, left: 10),
                 child: TextFormField(
-                  // key: _passWordKey,
+                  
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value) {
                     if (value.length < 6) {
+//                      Credentials();
                       return "Enter more than 6 Characters";
                     }
                     return null;
                   },
+                  onSaved: (value) => _pass = value.trim(),
                   style: TextStyle(color: Colors.white),
                   obscureText: true,
                   autofocus: false,
@@ -145,14 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: EdgeInsets.only(top: 520, left: 20),
                 child: RaisedButton(
                   color: Colors.pink,
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignupScreen()));
-                    }
-                  },
+                  onPressed: validateAndLogin,
                   child: Text(
                     "LOGIN",
                     style: TextStyle(
@@ -176,6 +271,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
+
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -207,6 +303,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.w700),
                     ),
                   )),
+
+// GOOGLE LOGIN BUTTON BELOW HERE
+
               Container(
                   height: MediaQuery.of(context).size.height / 15,
                   width: MediaQuery.of(context).size.width,
@@ -235,7 +334,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 50,
                             width: 130,
                             child: Text(
-                              "Sign up with google",
+                              "Login with google",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w900,

@@ -1,16 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vtop/Authentication/Login.dart';
-// import 'package:vtop/UI/homePage.dart';
-// import 'package:vtop/UI/newUI.dart';
-// import './UI/firechanges.dart';
-
+import './UI/firechanges.dart';
+// import 'Authentication/Authentication.dart';
+import 'Authentication/forgotPass.dart';
+import 'Authentication/Login.dart';
+import 'Authentication/Signup.dart';
+import './UI/SplashScreen.dart';
 void main() {
   runApp(
     MaterialApp(
       home: LoginScreen(),
       debugShowCheckedModeBanner: false,
-      
+      routes: <String ,WidgetBuilder>{
+        '/firechanges': (BuildContext context) => ExtendedHome(),
+        '/Login': (BuildContext context) => LoginScreen(),
+        '/Signup' :(BuildContext context) => SignupScreen(),
+        '/Forgot Password' : (BuildContext context) => ForgotPassword(),
+      }
     ),
   );
 }
