@@ -5,9 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:vtop/Authentication/Signup.dart';
 import 'package:vtop/Authentication/forgotPass.dart';
-import 'package:vtop/Authentication/Authentication.dart';
+// import 'package:vtop/Authentication/Authentication.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vtop/UI/SplashScreen.dart';
 import 'package:vtop/UI/firechanges.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -43,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
             email: _email, password: _pass)).user;
         UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
         userUpdateInfo.displayName = _email;
-
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen()));
         print('Login successfull user id of user is  : ${user.uid}');
       } catch (error) {
         switch(error.code){
