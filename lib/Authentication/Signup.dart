@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:vtop/Authentication/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vtop/Authentication/Login.dart';
 import 'package:vtop/UI/SplashScreen.dart';
 // import 'package:vtop/UI/firechanges.dart';
 
@@ -42,13 +43,13 @@ class _SignupScreenState extends State<SignupScreen> {
         user.sendEmailVerification();
         setState(() {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => SplashScreen()));
+              context, MaterialPageRoute(builder: (context) => LoginScreen()));
         });
         showDialog(context: context,
             builder: (BuildContext context) {
               return AlertDialog(
                 content: Container(
-                  child: Text("Please check your VIT-AP Email-ID"),
+                  child: Text("Please check your VIT-AP Email-ID for verifiation"),
 
                 ),
               );

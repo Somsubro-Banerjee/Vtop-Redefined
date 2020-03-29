@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+import 'package:vtop/Authentication/Login.dart';
+
 class DrawerLayout extends StatelessWidget {
   final backgroundColor = Color(0xFF4A4A58);
 
@@ -110,7 +112,9 @@ Widget menu(context){
           ),
                ],
              ),
-          onPressed: () => {},
+          onPressed: () {
+               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          },
           ),
           SizedBox(height: 30,),
         ],
