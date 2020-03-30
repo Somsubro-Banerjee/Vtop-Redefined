@@ -9,6 +9,7 @@ import 'package:vtop/Authentication/forgotPass.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vtop/UI/firechanges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -26,25 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
     FirebaseUser user;
-    //SHARED PREFERENCES TEST
 
-// @override
-// void initState() {
-//   super.initState();
-//   getUser().then((user) {
-//     if (user != null) {
-//       // send the user to the home page
-//      //  ExtendedHome();
-//       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-//       // homePage();
-//     }
-//   });
-// }
 
-//
-// Future<FirebaseUser> getUser() async {
-//   return await _auth.currentUser();
-// }
   bool validatAndSave()
   {
     if(_formKey.currentState.validate()){

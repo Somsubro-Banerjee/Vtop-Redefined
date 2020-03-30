@@ -3,6 +3,7 @@
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
+        <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/../../Vtop-Redefined/gen" />
         <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/../../Vtop-Redefined/gen" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/../../Vtop-Redefined/AndroidManifest.xml" />
@@ -21,9 +22,10 @@
       <excludeFolder url="file://$MODULE_DIR$/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
+    <orderEntry type="jdk" jdkName="11" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Dart SDK" level="project" />
-    <orderEntry type="library" name="Dart Packages" level="project" />
-    <orderEntry type="library" name="Flutter Plugins" level="project" />
+    <orderEntry type="library" exported="" name="Dart SDK" level="project" />
+    <orderEntry type="library" exported="" name="Dart Packages" level="project" />
+    <orderEntry type="library" exported="" name="Flutter Plugins" level="project" />
   </component>
 </module>
