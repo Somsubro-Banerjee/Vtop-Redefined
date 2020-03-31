@@ -8,3 +8,6 @@ android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 android/local.properties
 ios/Runner/GeneratedPluginRegistrant.m
 pubspec.lock
+.packages
+.dart_tool/package_config.json
+*.log
