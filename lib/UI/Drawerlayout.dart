@@ -28,7 +28,7 @@ Widget menu(context){
     print("User Sign Out");
   }
   RandomColor randomColor = RandomColor();
-  Color colour = randomColor.randomColor(colorBrightness: ColorBrightness.dark)
+  Color colour = randomColor.randomColor(colorBrightness: ColorBrightness.dark);
   final backgroundColor = Color(0xFF4A4A58);
   return Padding(
     padding: const EdgeInsets.only(left: 16.0),
@@ -46,7 +46,7 @@ Widget menu(context){
             child: CircleAvatar(
               backgroundColor: colour,
             foregroundColor: Colors.black,
-            backgroundImage: NetworkImage(image),
+            //backgroundImage: NetworkImage(image),
             maxRadius: 80,
             ),
           ),

@@ -40,150 +40,155 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
-      body: Form(
-        key: _formKey,
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/images/void.jpg'),
-                  fit: BoxFit.cover,
-                  ),
-                
-                ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/images/void.jpg'),
+            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.37), BlendMode.darken),
+            fit: BoxFit.cover,
+          )
+        ),
+        child: Form(
+          key: _formKey,
           child: Stack(
-             children: <Widget>[
-               Container(
-                 margin: EdgeInsets.only(top: 50, left:15),
-                 child: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white, size: 30,), onPressed: (){
-                   Navigator.pop(context);
-                 }),
-               ),
-              
+            children: <Widget>[
               Container(
-                    margin: EdgeInsets.only(top: 200, left: 35),
-                    child: Text(
-                      "FORGOT PASSWORD",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                      ),
+                margin: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.05, left: MediaQuery.of(context).size.width*0.03),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back,
+                    color: Colors.white, 
+                    size: 30,
+                  ),
+                  onPressed: (){
+                     Navigator.pop(context);
+                   }
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.15, left: MediaQuery.of(context).size.width*0.1),
+                child: Text("FORGOT PASSWORD",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.4, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
+                child: TextFormField(
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                    RegExp regex = new RegExp(pattern);
+                    if (!(regex.hasMatch(value) && value.contains("vitap.ac.in")))
+                      return "Please enter a valid Email-ID";
+                    else
+                      return null;
+                  },
+                  onSaved: (value) => _email = value.trim(),
+                  obscureText: false,
+                  autofocus: false,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    errorStyle: TextStyle(color: Colors.red),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(color: Colors.white, width: 1.75),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(color: Colors.white, width: 1.75),
+                    ),
+                    border: const OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
+                    ),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                    hintText: "Enter your VIT-AP Email ID",
+                    hintStyle: TextStyle(color: Colors.white, fontSize: 15),
+                    labelText: "Email",
+                    labelStyle: TextStyle(color: Colors.white, fontSize: 18)
+                  ),
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height*0.07,
+                width: MediaQuery.of(context).size.width*0.9,
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.5725, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
+                child: RaisedButton(        
+                  color: Colors.blue,
+                  onPressed: () {
+                    resetPassword(_email).whenComplete(() =>  setState(() {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                      String errorMsg = "Password reset link sent to email id please check";
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: Container(
+                              child: Text(errorMsg),
+                            ),
+                          );
+                        }
+                      );
+                    }));
+                  },
+                  child: Text(
+                    "CONTINUE",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900
                     ),
                   ),
-
-                Container(
-                    padding: EdgeInsets.only(left: 5, right: 10),
-                    margin: EdgeInsets.only(top: 350, left: 10),
-                    child: TextFormField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                        RegExp regex = new RegExp(pattern);
-                        if (!(regex.hasMatch(value) && value.contains("vitap.ac.in")))
-                         return "Please enter a valid Email-ID";
-                        else
-                          return null;
-                      },
-                      onSaved: (value) => _email = value.trim(),
-                      obscureText: false,
-                      autofocus: false,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.red),
-
-                          // fillColor: Colors.white, filled: true,
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          border: const OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: Colors.white, width: 2.0),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.email,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          hintText: "Enter you Vit-AP Email ID",
-                          hintStyle: TextStyle(color: Colors.white, fontSize: 15),
-                          labelText: "Email",
-                          labelStyle: TextStyle(color: Colors.white, fontSize: 20)),
-                    ),
-                  ),
-                   Container(
-                    height: MediaQuery.of(context).size.height / 18,
-                    width: 350,
-                    // padding: EdgeInsets.only(left: 5, top:5, right:4),
-                    margin: EdgeInsets.only(top: 520, left: 20),
-                    child: RaisedButton(
-                      
-                      color: Colors.blue,
-                      onPressed: () {
-                        resetPassword(_email).whenComplete(() =>  setState(() {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-                          String errorMsg = "Password reset link sent to email id please check";
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  content: Container(
-                                    child: Text(errorMsg),
-                                  ),
-                                );
-                              });
-                        }));
-                      },
-                      child: Text(
-                        "CONTINUE",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900),
-                      ),
-                      elevation: 20,
-                    ),
-                  ),
-                  Container(
-                  margin: EdgeInsets.only(top: 650, left: 30),
+                  elevation: 25,
+                ),
+              ),
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.8,bottom: MediaQuery.of(context).size.height*0.15,left: MediaQuery.of(context).size.width*0.18, right: MediaQuery.of(context).size.width*0.18),
                   child: RichText(
-                    text: TextSpan(
-                        text: "Remembered the Password ? here --> ",
+                  text: TextSpan(
+                    text: "Go back ? ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()..onTap = () {
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => LoginScreen()));
+                        },
+                        text: 'Login',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700),
-                        children: <TextSpan>[
-                          TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              LoginScreen()));
-                                },
-                              text: 'Login',
-                              style: TextStyle(
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      color: Colors.blue,
-                                      blurRadius: 10.0,
-                                      offset: Offset(0.0, 0.0),
-                                    )
-                                  ],
-                                  color: Colors.blue,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700))
-                        ]),
-                  )),
-             ],
+                          shadows: <Shadow>[
+                            Shadow(
+                              color: Colors.cyan,
+                              blurRadius: 5.0,
+                              offset: Offset(0.0, 0.0),
+                            )
+                          ],
+                          color: Colors.cyan,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800
+                        )
+                      )
+                    ]
+                  ))
+                ),
+              ),
+            ],
           ),
         ),
       ),

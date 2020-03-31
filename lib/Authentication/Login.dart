@@ -217,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.45, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.43, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
                   child: TextFormField(                    
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
@@ -257,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.54, left: MediaQuery.of(context).size.width*0.66),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.52, left: MediaQuery.of(context).size.width*0.7),
                   child: RichText(
                     text: TextSpan(
                       recognizer: TapGestureRecognizer()..onTap = ()
@@ -345,44 +345,46 @@ class _LoginScreenState extends State<LoginScreen> {
                     elevation: 20,
                   )
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.85,left: MediaQuery.of(context).size.width*0.18, right: MediaQuery.of(context).size.width*0.18),
-                  child: RichText(
-                    text: TextSpan(
-                      text: "Don't have an account ?",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          recognizer: TapGestureRecognizer()..onTap = () {
-                            Navigator.push(context,
-                              MaterialPageRoute(builder: (context) =>SignupScreen()));
-                          },
-                          text:' Sign up',
-                          style: TextStyle(
-                            shadows: <Shadow>[
-                              Shadow(
-                                color: Colors.cyanAccent,
-                                blurRadius:5.0,
-                                offset: Offset(0.0, 0.0),
-                              )
-                            ],
-                            color: Colors.cyanAccent,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.83,bottom: MediaQuery.of(context).size.height*0.13,left: MediaQuery.of(context).size.width*0.18, right: MediaQuery.of(context).size.width*0.18),
+                    child: RichText(
+                      text: TextSpan(
+                        text: "Don't have an account ?",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()..onTap = () {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) =>SignupScreen()));
+                            },
+                            text:' Sign up',
+                            style: TextStyle(
+                              shadows: <Shadow>[
+                                Shadow(
+                                  color: Colors.cyanAccent,
+                                  blurRadius:5.0,
+                                  offset: Offset(0.0, 0.0),
+                                )
+                              ],
+                              color: Colors.cyanAccent,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800
+                            )
                           )
-                        )
-                      ]
-                    ),
-                  )
+                        ]
+                      ),
+                    )
+                  ),
                 ),
-              ],
-            ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
