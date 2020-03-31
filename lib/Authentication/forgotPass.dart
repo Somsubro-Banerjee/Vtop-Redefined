@@ -11,16 +11,30 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  String email = "";
+  String _email = "";
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = new TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  bool validatAndSave()
+  {
+    if(_formKey.currentState.validate()){
+      _formKey.currentState.save();
+      return true;
+    }
+    return false;
+  }
   @override
   Future<void> resetPassword(String email) async {
-    _formKey.currentState.save();
-    await _auth.sendPasswordResetEmail(email: email);
+    if(validatAndSave())
+      {
+        try{
+          await _auth.sendPasswordResetEmail(email: _email);
+        }
+        catch (e){
+          print(e);
+        }
+      }
   }
 
   @override
@@ -71,7 +85,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         else
                           return null;
                       },
-                      onSaved: (value) => email = value.trim(),
+                      onSaved: (value) => _email = value.trim(),
                       obscureText: false,
                       autofocus: false,
                       style: TextStyle(color: Colors.white),
@@ -111,7 +125,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       
                       color: Colors.blue,
                       onPressed: () {
-                        resetPassword(email);
+                        resetPassword(_email).whenComplete(() =>  setState(() {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                          String errorMsg = "Password reset link sent to email id please check";
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Container(
+                                    child: Text(errorMsg),
+                                  ),
+                                );
+                              });
+                        }));
                       },
                       child: Text(
                         "CONTINUE",
