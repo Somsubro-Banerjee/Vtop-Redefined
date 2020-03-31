@@ -13,9 +13,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
+
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+//
+//  @override
+// void initState()
+//  {
+//    super.initState();
+//    autoLogin();
+//  }
   String _email = "";
   String _pass = "";
   final _formKey = GlobalKey<FormState>();
@@ -25,7 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  
+
+  //implementing auto login
+  Future<bool> isUserLoggedIn() async {
+    var user = await _auth.currentUser();
+    return user != null;
+  }
+
+
   //implementation of google sign in method
 
   Future<String> signInWithGoogle() async {
@@ -58,9 +73,23 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return false;
   }
+
+  autoLogin() async
+  {
+    var user = await _auth.currentUser();
+    if(_auth.currentUser() != null)
+      {
+        ExtendedHome();
+      }
+    else{
+      validateAndLogin();
+    }
+  }
+
   validateAndLogin() async
   {
     if(validatAndSave()) {
+      isUserLoggedIn();
       try {
 
         FirebaseUser user;
@@ -357,3 +386,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+
+
+
+

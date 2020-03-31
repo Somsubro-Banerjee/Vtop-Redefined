@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:ui';
-
+import 'package:random_color/random_color.dart';
 import 'package:vtop/Authentication/Login.dart';
 
 class DrawerLayout extends StatelessWidget {
@@ -10,10 +10,6 @@ class DrawerLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -31,6 +27,8 @@ Widget menu(context){
     await googleSignIn.signOut();
     print("User Sign Out");
   }
+  RandomColor randomColor = RandomColor();
+  Color colour = randomColor.randomColor(colorBrightness: ColorBrightness.dark)
   final backgroundColor = Color(0xFF4A4A58);
   return Padding(
     padding: const EdgeInsets.only(left: 16.0),
@@ -46,8 +44,9 @@ Widget menu(context){
               Container(
             margin: EdgeInsets.only(right:20, top: 0),
             child: CircleAvatar(
-              
-            backgroundImage: NetworkImage("https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+              backgroundColor: colour,
+            foregroundColor: Colors.black,
+            backgroundImage: NetworkImage(image),
             maxRadius: 80,
             ),
           ),
