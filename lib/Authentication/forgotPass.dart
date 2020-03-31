@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   String email = "";
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = new TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  Future<void> resetPassword(String email) async {
+    _formKey.currentState.save();
+    await _auth.sendPasswordResetEmail(email: email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +71,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         else
                           return null;
                       },
+                      onSaved: (value) => email = value.trim(),
                       obscureText: false,
                       autofocus: false,
                       style: TextStyle(color: Colors.white),
@@ -101,12 +111,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       
                       color: Colors.blue,
                       onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignupScreen()));
-                        }
+                        resetPassword(email);
                       },
                       child: Text(
                         "CONTINUE",

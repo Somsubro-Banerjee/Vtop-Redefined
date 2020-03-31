@@ -42,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
     assert(await user.getIdToken() != null);
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
+//    user.sendEmailVerification();
     return 'signInWithGoogle succeeded: $user';
   }
 
