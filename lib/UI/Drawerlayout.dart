@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:ui';
 
 import 'package:vtop/Authentication/Login.dart';
@@ -9,6 +10,7 @@ class DrawerLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
 
 
 
@@ -24,6 +26,11 @@ class DrawerLayout extends StatelessWidget {
   }
 }
 Widget menu(context){
+  void signOutGoogle() async{
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+    print("User Sign Out");
+  }
   final backgroundColor = Color(0xFF4A4A58);
   return Padding(
     padding: const EdgeInsets.only(left: 16.0),
@@ -117,6 +124,7 @@ Widget menu(context){
                ],
              ),
           onPressed: () {
+            signOutGoogle();
                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
           },
           ),

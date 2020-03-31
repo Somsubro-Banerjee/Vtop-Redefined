@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vtop/Authentication/Login.dart';
 import 'package:vtop/UI/SplashScreen.dart';
+import 'package:vtop/UI/firechanges.dart';
 // import 'package:vtop/UI/firechanges.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -23,6 +24,23 @@ class _SignupScreenState extends State<SignupScreen> {
   FirebaseUser user;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  Future<String> signInWithGoogle() async {
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+    await googleSignInAccount.authentication;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    final AuthResult authResult = await _auth.signInWithCredential(credential);
+    final FirebaseUser user = authResult.user;
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+    final FirebaseUser currentUser = await _auth.currentUser();
+    assert(user.uid == currentUser.uid);
+    return 'signInWithGoogle succeeded: $user';
+  }
 
 
 
@@ -303,7 +321,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.78, left: MediaQuery.of(context).size.width*0.05, right: MediaQuery.of(context).size.width*0.05),
                   child: RaisedButton(
                     color: Colors.white,
-                    onPressed: (){},
+                    onPressed: (){
+                      signInWithGoogle().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ExtendedHome())));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
