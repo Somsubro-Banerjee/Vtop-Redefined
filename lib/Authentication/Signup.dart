@@ -5,8 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vtop/Authentication/Login.dart';
 import 'package:vtop/UI/SplashScreen.dart';
-import 'package:vtop/UI/firechanges.dart';
+//import 'package:vtop/UI/firechanges.dart';
 // import 'package:vtop/UI/firechanges.dart';
+import 'package:vtop/UI/HomeScreen.dart';
 
 class SignupScreen extends StatefulWidget {
   @override

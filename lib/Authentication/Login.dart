@@ -7,7 +7,8 @@ import 'package:vtop/Authentication/Signup.dart';
 import 'package:vtop/Authentication/forgotPass.dart';
 // import 'package:vtop/Authentication/Authentication.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:vtop/UI/firechanges.dart';
+//import 'package:vtop/UI/firechanges.dart';
+import 'package:vtop/UI/HomeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -53,12 +54,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     final FirebaseUser user = authResult.user;
+    String email = user.email;
+
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 //    user.sendEmailVerification();
-    return 'signInWithGoogle succeeded: $user';
+    return 'signInWithGoogle succeeded: $user, email $email';
   }
 
 
