@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:firebase_auth/firebase_auth.dart";
 import 'package:random_color/random_color.dart';
 import 'package:google_sign_in/google_sign_in.dart';import 'dart:ui';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart';
 
 
@@ -81,7 +82,7 @@ class _ExtendedHomeState extends State<ExtendedHome> {
                UserAccountsDrawerHeader(
                  accountName: Text(""),
                  currentAccountPicture: CircleAvatar(
-                   backgroundImage: NetworkImage(),
+                   //backgroundImage: NetworkImage(),
                    radius: 50,
                    backgroundColor: _color,
                   child: FutureBuilder<String>(
@@ -137,22 +138,89 @@ class _ExtendedHomeState extends State<ExtendedHome> {
   }
 }
 
-class FirstScreen extends StatefulWidget {
-  @override
-  _FirstScreenState createState() => _FirstScreenState();
-}
+List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
+  const StaggeredTile.count(8, 4),
+  const StaggeredTile.count(4, 4),
+  const StaggeredTile.count(4, 6),
+  const StaggeredTile.count(4, 6),
+  const StaggeredTile.count(4, 4),
+];
+ 
+ const String hello='Hello there';
+ const String hi='Sexy';
 
-class _FirstScreenState extends State<FirstScreen> {
-  final secondTabColor = Color(0xFF1d1d1d);
+List<Widget> _tiles = const <Widget>[
+  const _Example01Tile( Icons.widgets, hello),
+  const _Example01Tile( Icons.wifi, hi),
+  const _Example01Tile( Icons.panorama_wide_angle, hello),
+  const _Example01Tile( Icons.map, hello),
+  const _Example01Tile( Icons.send, hello),
+];
+
+class _Example01Tile extends StatelessWidget {
+  const _Example01Tile( this.iconData, this.text);
+
+  final String text;
+  final IconData iconData;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: secondTabColor,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      
+        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage('https://images.pexels.com/photos/3667816/pexels-photo-3667816.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
+              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.37), BlendMode.darken),
+            )
+          ),
+          child: new InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () {
+              debugPrint(text);
+            },
+            child: new Center(
+              child: new Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: new Icon(
+                  iconData,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
     );
   }
 }
 
 
+class FirstScreen extends StatelessWidget {
+  final firstTabColor = Color(0xFF1d1d1d);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: firstTabColor,
+      body: new Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: new StaggeredGridView.count(
+              crossAxisCount: 8,
+              staggeredTiles: _staggeredTiles,
+              children: _tiles,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              padding: const EdgeInsets.all(20.0),
+            )
+      )
+    );
+  }
+}
 class SecondScreen extends StatefulWidget {
   @override
   _SecondScreenState createState() => _SecondScreenState();
